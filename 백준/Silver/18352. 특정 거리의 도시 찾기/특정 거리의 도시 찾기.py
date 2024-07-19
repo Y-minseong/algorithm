@@ -17,8 +17,9 @@ def bfs(graph, start, k):
             result.append(i)
     return result
 n, m, k, x = map(int, input().split())
-graph = {i: [] for i in range(1, n + 1)}
-for _ in range(m):
+
+graph = [[] for i in range(n + 1)]
+for i in range(m):
     a, b = map(int, input().split())
     graph[a].append(b)
 
