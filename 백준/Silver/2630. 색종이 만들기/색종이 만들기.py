@@ -1,41 +1,36 @@
 import sys
-
-# input 값을 받는다.
-N = int(sys.stdin.readline())
+input = sys.stdin.readline
+n = int(input())
 paper = []
-for i in range(N):
-    a = list(map(int, sys.stdin.readline().split()))
+for i in range(n):
+    a = list(map(int, input().split()))
     paper.append(a)
 blue, white = 0, 0
 
-def quarter_square(x, y, n):
+def cut_paper(x, y, n):
     global paper, blue, white
+    start_paper = paper[x][y]
     check = True
-    first_color = paper[x][y]
-    
-    for i in range(x, x+n):
-       
-        for j in range(y, y+n):
-            if paper[i][j] != first_color:
+    for i in range(x, x + n):
+        for j in range(y, y + n):
+            if paper[i][j] != start_paper:
                 check = False
                 break
-        if not check: # 기저조건이 이거인 이유.
+        if not check:
             break
-                
-        
+    
     if check:
-        if first_color == 1:
+        if start_paper == 1:
             blue += 1
-            
         else:
             white += 1
-
     else:
-        k = n//2
-        quarter_square(x, y, k)
-        quarter_square(x, y + k, k)
-        quarter_square(x + k, y, k)
-        quarter_square(x + k, y + k, k)
-quarter_square(0, 0, N)
+        k = n // 2
+        cut_paper(x, y, k)
+        cut_paper(x, y + k, k)
+        cut_paper(x + k, y, k)
+        cut_paper(x + k, y + k, k)
+
+cut_paper(0, 0, n)
 print(white)
 print(blue)
